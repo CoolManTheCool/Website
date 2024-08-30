@@ -1,0 +1,29 @@
+#footer-container {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+/* Basic link styling for the footer */
+#footer-container a {
+    color: #ffffff; /* White color for the link text */
+    text-decoration: none; /* Remove underline */
+    background-color: #ff0000; /* Default vibrant red background */
+    padding: 5px 10px; /* Add some padding */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Link hover styling in the footer */
+#footer-container a:hover {
+    background: #ff6f4b; /* Gradient background on hover */
+    background-size: 200% 200%; /* Make the gradient fill the element */
+    color: #ffffff; /* Keep text color white */
+    text-decoration: none; /* Maintain no underline */
+    background-position: 0% 0%; /* Initial background position */
+    transition: background-position 0.3s ease; /* Smooth transition for background position */
+}

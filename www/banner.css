@@ -1,0 +1,54 @@
+/* Styles for the global banner */
+#global-banner {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 32px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#global-banner p {
+    margin: 0;
+    font-weight: bold;
+}
+
+#global-banner a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#global-banner a:hover {
+    text-decoration: none;
+    color: #ffd700; /* Highlight color on hover */
+}
+
+#banner-container {
+    position: relative;
+}
+
+/* Banner button for returning to homepage */
+#banner-container .home-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: #fff;
+    color: #ff7e5f;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, color 0.3s;
+}
+
+#banner-container .home-button:hover {
+    background: #ff7e5f;
+    color: #fff;
+}

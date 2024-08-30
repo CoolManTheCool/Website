@@ -1,15 +1,19 @@
 {
-  "name": "kittyweb2",
+  "name": "website",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Website",
+    "Node.js"
+  ],
+  "author": "CoolManTheCool",
+  "license": "MIT",
   "dependencies": {
+    "cookie": "^0.6.0",
     "http": "^0.0.1-security"
   }
 }
