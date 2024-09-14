@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function fetchData() {
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/users');
+        const response = await fetch('http://127.0.0.1:3000/api/test');
         
         if (!response.ok) {
             throw new Error('Network response was not ok');

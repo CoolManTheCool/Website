@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error loading footer:', error));
 });
-if (false) {
+if (true) {
     document.addEventListener('DOMContentLoaded', () => {
-        const refreshInterval = 5000; // 1 second
+        const refreshInterval = 3000;
     
         setInterval(() => {
             window.location.reload();

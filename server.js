@@ -3,12 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const querystring = require('querystring');
 
-const PORT = 3000;
-const WWW_DIR = path.join(__dirname, 'www');
-const API_DIR = path.join(__dirname, 'api');
+// Load configuration from config.json
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8'));
+
+const PORT = config.PORT;
+const WWW_DIR = path.resolve(config.WWW_DIR);
+const API_DIR = path.resolve(config.API_DIR);
 
 const server = http.createServer((req, res) => {
-    if (req.url.startsWith('/api/users')) {
+    if (req.url.startsWith('/api')) {
         handleApiRequest(req, res);
     } else {
         handleFileRequest(req, res);
@@ -17,23 +20,27 @@ const server = http.createServer((req, res) => {
 
 function handleApiRequest(req, res) {
     if (req.method === 'GET') {
-        handleGetUserActivity(req, res);
-    } else if (req.method === 'POST') {
-        handleAddUser(req, res);
-    } else if (req.method === 'DELETE') {
-        handleRemoveUser(req, res);
+        handleGETRequest(req, res);
     } else {
         res.writeHead(405, { 'Content-Type': 'text/plain' });
         res.end('405 Method Not Allowed');
     }
 }
 
-function handleGetUserActivity(req, res) {
-    const scriptPath = path.join(API_DIR, 'users', 'index.js');
+function handleGETRequest(req, res) {
+    const scriptPath = path.join(API_DIR, req.url.replace('/api', ''), "index.js");
     const apiModule = require(scriptPath);
-    
+
     if (typeof apiModule.main === 'function') {
-        apiModule.main()
+        // Check if it's already a promise
+        let result = apiModule.main();
+
+        if (!(result instanceof Promise)) {
+            // If it's not a Promise, wrap it in one
+            result = Promise.resolve(result);
+        }
+
+        result
             .then(result => {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify(result));
@@ -48,79 +55,6 @@ function handleGetUserActivity(req, res) {
     }
 }
 
-function handleAddUser(req, res) {
-    let body = '';
-
-    req.on('data', chunk => {
-        body += chunk.toString(); // Convert Buffer to string
-    });
-
-    req.on('end', () => {
-        const data = querystring.parse(body);
-        const userId = data.userId;
-
-        if (!userId) {
-            res.writeHead(400, { 'Content-Type': 'text/plain' });
-            res.end('400 Bad Request: userId is required');
-            return;
-        }
-
-        const scriptPath = path.join(API_DIR, 'users', 'index.js');
-        const apiModule = require(scriptPath);
-        
-        if (typeof apiModule.addUser === 'function') {
-            apiModule.addUser(userId)
-                .then(() => {
-                    res.writeHead(200, { 'Content-Type': 'text/plain' });
-                    res.end('User added successfully');
-                })
-                .catch(err => {
-                    res.writeHead(err.status || 500, { 'Content-Type': 'text/plain' });
-                    res.end(err.message || '500 Server Error');
-                });
-        } else {
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end('500 Server Error: No addUser function found');
-        }
-    });
-}
-
-function handleRemoveUser(req, res) {
-    let body = '';
-
-    req.on('data', chunk => {
-        body += chunk.toString(); // Convert Buffer to string
-    });
-
-    req.on('end', () => {
-        const data = querystring.parse(body);
-        const userId = data.userId;
-
-        if (!userId) {
-            res.writeHead(400, { 'Content-Type': 'text/plain' });
-            res.end('400 Bad Request: userId is required');
-            return;
-        }
-
-        const scriptPath = path.join(API_DIR, 'users', 'index.js');
-        const apiModule = require(scriptPath);
-        
-        if (typeof apiModule.removeUser === 'function') {
-            apiModule.removeUser(userId)
-                .then(() => {
-                    res.writeHead(200, { 'Content-Type': 'text/plain' });
-                    res.end('User removed successfully');
-                })
-                .catch(err => {
-                    res.writeHead(err.status || 500, { 'Content-Type': 'text/plain' });
-                    res.end(err.message || '500 Server Error');
-                });
-        } else {
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end('500 Server Error: No removeUser function found');
-        }
-    });
-}
 
 function handleFileRequest(req, res) {
     let filePath = path.join(WWW_DIR, req.url === '/' ? 'index.html' : req.url);
