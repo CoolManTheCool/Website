@@ -28,33 +28,34 @@ function handleApiRequest(req, res) {
 }
 
 function handleGETRequest(req, res) {
-    const scriptPath = path.join(API_DIR, req.url.replace('/api', ''), "index.js");
-    const apiModule = require(scriptPath);
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const scriptPath = path.join(API_DIR, url.pathname.toLowerCase().replace('/api', ''));
 
-    if (typeof apiModule.main === 'function') {
-        // Check if it's already a promise
-        let result = apiModule.main();
+    try {
+        const apiModule = require(scriptPath);
 
-        if (!(result instanceof Promise)) {
-            // If it's not a Promise, wrap it in one
-            result = Promise.resolve(result);
+        if (typeof apiModule.main === 'function') {
+            const queryParams = new URLSearchParams(url.search);
+            const password = req.headers['authorization']?.split(' ')[1]; // Extract password from the header
+            if (password) queryParams.set('password', password);
+
+            Promise.resolve(apiModule.main(queryParams))
+                .then((output) => {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(output));
+                })
+                .catch((err) => {
+                    res.writeHead(err.status || 500, { 'Content-Type': 'text/plain' });
+                    res.end(err.message || '500 Server Error');
+                });
+        } else {
+            throw new Error('No main function found');
         }
-
-        result
-            .then(result => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify(result));
-            })
-            .catch(err => {
-                res.writeHead(err.status || 500, { 'Content-Type': 'text/plain' });
-                res.end(err.message || '500 Server Error');
-            });
-    } else {
+    } catch (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end('500 Server Error: No main function found');
+        res.end(`500 Server Error: ${err.message}`);
     }
 }
-
 
 function handleFileRequest(req, res) {
     let filePath = path.join(WWW_DIR, req.url === '/' ? 'index.html' : req.url);

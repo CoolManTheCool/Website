@@ -1,15 +1,19 @@
 /* Styles for the global banner */
 #global-banner {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    background: rgba(255, 126, 95, 0.8); /* Transparent background */
     color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 15px 20px;
+    padding: 10px 20px;
     text-align: left;
-    font-size: 32px;
-    position: relative;
+    font-size: 24px; /* Adjusted for better overlay appearance */
+    position: fixed; /* Float on top of content */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width of the viewport */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 0; /* Remove rounded corners for a flat overlay */
+    z-index: 1000; /* Ensure it stays above other content */
+    backdrop-filter: blur(5px); /* Optional: Adds a blur effect to content behind the banner */
 }
 
 #global-banner p {
@@ -28,16 +32,12 @@
     color: #ffd700; /* Highlight color on hover */
 }
 
-#banner-container {
-    position: relative;
-}
-
-/* Banner button for returning to homepage */
-#banner-container .home-button {
+.home-button {
     position: absolute;
-    top: 15px;
+    top: 50%;
     right: 20px;
-    background: rgb(255, 242, 239);
+    transform: translateY(-50%);
+    background: rgba(255, 242, 239, 0.9); /* Transparent button background */
     color: #ff7e5f;
     border: none;
     padding: 8px 12px;
@@ -48,7 +48,7 @@
     transition: background 0.3s, color 0.3s;
 }
 
-#banner-container .home-button:hover {
+.home-button:hover {
     background: #ff7e5f;
     color: #fff;
 }

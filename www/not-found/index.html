@@ -1,0 +1,56 @@
+<!-- /www/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CoolMan</title>
+    <link rel="stylesheet" href="login/index.css">
+    <link rel="stylesheet" href="global.css">
+    <script defer src="global.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="banner-container"></div>
+    <h1>Login or Sign Up</h1>
+
+    <div class="forum">
+        <!-- Login Section -->
+        <div class="login">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+
+        <!-- Sign Up Section -->
+        <div class="signup">
+            <h2>Sign Up</h2>
+            <form action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <!--<pre id="output">Loading User Data...</pre> -->
+    <div id="footer-container"></div>
+</body>
+</html>

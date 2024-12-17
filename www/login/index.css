@@ -1,0 +1,69 @@
+.forum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.login, .signup {
+    width: 100%;
+    max-width: 350px;
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #444;
+    color: #ffffff;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.forum button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .forum {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .login, .signup {
+        width: 100%;
+        max-width: 90%;
+    }
+}

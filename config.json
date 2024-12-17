@@ -1,6 +1,7 @@
 {
-    "PORT": 3000,
-    "WWW_DIR": "./www",
-    "API_DIR": "./api"
-  }
+  "PORT":      3000,
+  "WWW_DIR":   "./www",
+  "API_DIR":   "./api",
+  "CACHE_DIR": "./cache"
+}
   

@@ -1,3 +1,6 @@
+function fetchData() {}
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
     fetch('127.0.0.1:3000/api/users/') // Replace with your API endpoint
         .then(response => response.json())
@@ -31,6 +34,7 @@ async function fetchData() {
         document.getElementById('output').textContent = 'Error: ' + error.message;
     }
 }
+*/
 
 
 // Call fetchData on page load

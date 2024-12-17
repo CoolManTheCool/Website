@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 if (true) {
     document.addEventListener('DOMContentLoaded', () => {
-        const refreshInterval = 3000;
+        const refreshInterval = 2000;
     
         setInterval(() => {
             window.location.reload();
